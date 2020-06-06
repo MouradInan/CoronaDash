@@ -43,10 +43,9 @@ total_cases['inf_per_km'] = (total_cases['nb'] / total_cases['Superficie']) * 10
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
-
 app.layout = html.Div(className='container', children=[
     html.H1(children='Dashboard Covid-19', id="Title"),
-    html.Div(children=[html.H3(children='Quel est l\'évolution du Covid19 depuis hier ?'),
+    html.Div(children=[
                        html.H4(children=str(diff.sum()) + ' cas recensés', id='green' if diff.sum() < 0 else 'red')]),
 
     dcc.Graph(
@@ -56,7 +55,7 @@ app.layout = html.Div(className='container', children=[
                 {'x': df.sum().index, 'y': df.sum().values, 'type': 'bar'},
             ],
             'layout': {
-                'title': 'Nombre de cas total daté du ' + str(date.today())
+                'title': 'Nombre de cas total daté du ' + str(df.index[-1])
             }
         }
     ),
